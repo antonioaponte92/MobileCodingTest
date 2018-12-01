@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MobileCodingTest</string>
     <string name="search">Search</string>
+    <string name="no_info">No information available</string>
 </resources>
