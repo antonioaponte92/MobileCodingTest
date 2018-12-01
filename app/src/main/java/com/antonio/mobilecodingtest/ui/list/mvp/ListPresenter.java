@@ -28,18 +28,21 @@ public class ListPresenter implements ListContract.Presenter,ListContract.ModelR
     @Override
     public void onGetRemoteListSuccess(Data data) {
         if (view == null) return;
+        view.hideProgress();
         view.showData(data);
     }
 
     @Override
     public void onGetRemoteListFailed(String reason) {
         if (view == null) return;
+        view.hideProgress();
         view.showError(reason);
     }
 
     @Override
     public void getData() {
         if (view == null) return;
+        view.showProgress();
         model.getListRemote(this);
     }
 }
