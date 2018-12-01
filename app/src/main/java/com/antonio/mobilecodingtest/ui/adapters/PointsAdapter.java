@@ -15,6 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder>{
     private List<Point> pointsList;
@@ -55,9 +56,14 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder
             super(itemView);
             ButterKnife.bind(this,itemView);
         }
+
+        @OnClick(R.id.card_view)
+        void OnClick(){
+            listener.onItemClick(pointsList.get(getAdapterPosition()).getId());
+        }
     }
 
     public interface PointListener{
-        void onItemClick(int id);
+        void onItemClick(String id);
     }
 }

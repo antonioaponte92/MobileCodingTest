@@ -1,5 +1,6 @@
 package com.antonio.mobilecodingtest.ui.list;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,6 +14,7 @@ import com.antonio.mobilecodingtest.R;
 import com.antonio.mobilecodingtest.commons.BaseActivity;
 import com.antonio.mobilecodingtest.data.models.Data;
 import com.antonio.mobilecodingtest.ui.adapters.PointsAdapter;
+import com.antonio.mobilecodingtest.ui.detail.DetailActivity;
 import com.antonio.mobilecodingtest.ui.list.mvp.ListContract;
 import com.antonio.mobilecodingtest.ui.list.mvp.ListPresenter;
 
@@ -76,8 +78,10 @@ public class ListActivity extends BaseActivity implements ListContract.View
     }
 
     @Override
-    public void onItemClick(int id) {
-
+    public void onItemClick(String id) {
+        Intent intent = new Intent(ListActivity.this, DetailActivity.class);
+        intent.putExtra("id",id);
+        startActivity(intent);
     }
 
     @Override
