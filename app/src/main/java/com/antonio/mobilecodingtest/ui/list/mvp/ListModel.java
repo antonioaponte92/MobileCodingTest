@@ -4,8 +4,11 @@ import android.util.Log;
 
 import com.antonio.mobilecodingtest.BuildConfig;
 import com.antonio.mobilecodingtest.commons.RetrofitClient;
+import com.antonio.mobilecodingtest.data.local.PointTable;
 import com.antonio.mobilecodingtest.data.models.Data;
 import com.antonio.mobilecodingtest.data.remote.RemoteApi;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,5 +36,9 @@ public class ListModel {
                 listener.onGetRemoteListFailed(t.getMessage());
             }
         });
+    }
+
+    public List<PointTable> getListLocal(){
+        return PointTable.listAll(PointTable.class);
     }
 }

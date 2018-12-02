@@ -1,8 +1,8 @@
 package com.antonio.mobilecodingtest.ui.list;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 
 import com.antonio.mobilecodingtest.R;
 import com.antonio.mobilecodingtest.commons.BaseActivity;
-import com.antonio.mobilecodingtest.data.models.Data;
+import com.antonio.mobilecodingtest.data.local.PointTable;
 import com.antonio.mobilecodingtest.ui.adapters.PointsAdapter;
 import com.antonio.mobilecodingtest.ui.detail.DetailActivity;
 import com.antonio.mobilecodingtest.ui.list.mvp.ListContract;
@@ -21,7 +21,6 @@ import com.antonio.mobilecodingtest.ui.list.mvp.ListPresenter;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class ListActivity extends BaseActivity implements ListContract.View
         ,PointsAdapter.PointListener
@@ -40,9 +39,9 @@ public class ListActivity extends BaseActivity implements ListContract.View
 
     @Override
     public void onCreateView(@Nullable Bundle savedInstanceState) {
+        adapter = new PointsAdapter(this,getBaseContext());
         presenter = new ListPresenter(this,getBaseContext());
         presenter.getData();
-        adapter = new PointsAdapter(this,getBaseContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ListActivity.this);
         recycler_points.setHasFixedSize(true);
         recycler_points.setNestedScrollingEnabled(true);
@@ -51,11 +50,6 @@ public class ListActivity extends BaseActivity implements ListContract.View
         swipeRefreshLayout.setOnRefreshListener(this);
     }
 
-    @Override
-    public void showData(Data data) {
-        Log.d(TAG, "showData");
-        adapter.setData(data.getList());
-    }
 
     @Override
     public void showNoResult() {
@@ -87,5 +81,10 @@ public class ListActivity extends BaseActivity implements ListContract.View
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void showData(List<PointTable> data) {
+        adapter.setData(data);
     }
 }

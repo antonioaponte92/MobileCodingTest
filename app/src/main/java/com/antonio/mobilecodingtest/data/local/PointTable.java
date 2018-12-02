@@ -4,12 +4,13 @@ import com.orm.SugarRecord;
 import com.orm.dsl.Unique;
 
 public class PointTable extends SugarRecord{
-    @Unique
     String id;
     String title;
     String geocoordinates;
 
-    public PointTable() {}
+    public PointTable() {
+
+    }
 
     public PointTable(String id, String title, String geocoordinates) {
         this.id = id;

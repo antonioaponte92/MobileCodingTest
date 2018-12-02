@@ -1,8 +1,11 @@
 package com.antonio.mobilecodingtest.ui.list.mvp;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.antonio.mobilecodingtest.data.local.PointTable;
 import com.antonio.mobilecodingtest.data.models.Data;
+import com.antonio.mobilecodingtest.data.models.Point;
 
 public class ListPresenter implements ListContract.Presenter,ListContract.ModelResultListener{
     private ListContract.View view;
@@ -29,7 +32,11 @@ public class ListPresenter implements ListContract.Presenter,ListContract.ModelR
     public void onGetRemoteListSuccess(Data data) {
         if (view == null) return;
         view.hideProgress();
-        view.showData(data);
+        for (Point point : data.getList()){
+            PointTable pointTable = new PointTable(point.getId(),point.getTitle(),point.getGeocoordinates());
+            pointTable.save();
+        }
+        view.showData(model.getListLocal());
     }
 
     @Override
@@ -43,6 +50,11 @@ public class ListPresenter implements ListContract.Presenter,ListContract.ModelR
     public void getData() {
         if (view == null) return;
         view.showProgress();
-        model.getListRemote(this);
+        if (model.getListLocal().size()==0){
+            model.getListRemote(this);
+        }else{
+            view.hideProgress();
+            view.showData(model.getListLocal());
+        }
     }
 }

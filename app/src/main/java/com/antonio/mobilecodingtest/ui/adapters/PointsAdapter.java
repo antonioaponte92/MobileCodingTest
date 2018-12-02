@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.antonio.mobilecodingtest.R;
+import com.antonio.mobilecodingtest.data.local.PointTable;
 import com.antonio.mobilecodingtest.data.models.Point;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,7 +31,7 @@ import butterknife.OnClick;
 
 public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder>{
     static final String TAG = PointsAdapter.class.getSimpleName();
-    private List<Point> pointsList;
+    private List<PointTable> pointsList;
     private PointListener listener;
     private Context context;
 
@@ -38,7 +40,7 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder
         this.context = context;
     }
 
-    public void setData(List<Point> pointsList) {
+    public void setData(List<PointTable> pointsList) {
         this.pointsList = pointsList;
         notifyDataSetChanged();
     }
@@ -81,7 +83,7 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder
 
         @OnClick(R.id.card_view)
         void OnClick(){
-            listener.onItemClick(pointsList.get(getAdapterPosition()).getId());
+            listener.onItemClick(pointsList.get(getAdapterPosition()).getIdentifier());
         }
 
         @Override
