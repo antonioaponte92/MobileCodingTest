@@ -96,7 +96,7 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder
                 Log.e(TAG, "Can't find style. Error: ", e);
             }
             gMap = googleMap;
-            googleMap.getUiSettings().setScrollGesturesEnabled(false);
+            gMap.getUiSettings().setAllGesturesEnabled(false);
             gMap.addMarker(new MarkerOptions().position(place)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
                     .setDraggable(false);
