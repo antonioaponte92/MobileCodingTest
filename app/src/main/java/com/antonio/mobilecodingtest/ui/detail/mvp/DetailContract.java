@@ -1,6 +1,7 @@
 package com.antonio.mobilecodingtest.ui.detail.mvp;
 
 import com.antonio.mobilecodingtest.commons.MVPContract;
+import com.antonio.mobilecodingtest.data.local.PointDetailsTable;
 import com.antonio.mobilecodingtest.data.models.PointDetails;
 
 public class DetailContract extends MVPContract {
@@ -14,6 +15,6 @@ public class DetailContract extends MVPContract {
     }
 
     public interface View extends MVPContract.View{
-        void showData(PointDetails data);
+        void showData(PointDetailsTable data);
     }
 }

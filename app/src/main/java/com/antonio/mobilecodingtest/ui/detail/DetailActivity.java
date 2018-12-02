@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.antonio.mobilecodingtest.R;
 import com.antonio.mobilecodingtest.commons.BaseActivity;
+import com.antonio.mobilecodingtest.data.local.PointDetailsTable;
 import com.antonio.mobilecodingtest.data.models.PointDetails;
 import com.antonio.mobilecodingtest.ui.detail.mvp.DetailContract;
 import com.antonio.mobilecodingtest.ui.detail.mvp.DetailPresenter;
@@ -51,7 +52,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
     @Override
     public void onCreateView(@Nullable Bundle savedInstanceState) {
         if (getIntent().getExtras()!=null){
-            presenter = new DetailPresenter(this,getBaseContext());
+            presenter = new DetailPresenter(this);
             presenter.getData(getIntent().getStringExtra("id"));
             mapView.onCreate(savedInstanceState);
         }
@@ -71,7 +72,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
      * it comes from the Endpoint like a String
      */
     @Override
-    public void showData(PointDetails data) {
+    public void showData(PointDetailsTable data) {
         dataLayout.setVisibility(View.VISIBLE);
         title.setText(data.getTitle());
         address.setText(data.getAddress().equals("null") ? getString(R.string.no_info) :data.getAddress());

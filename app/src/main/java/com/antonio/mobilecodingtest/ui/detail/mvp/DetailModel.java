@@ -4,9 +4,12 @@ import android.util.Log;
 
 import com.antonio.mobilecodingtest.BuildConfig;
 import com.antonio.mobilecodingtest.commons.RetrofitClient;
+import com.antonio.mobilecodingtest.data.local.PointDetailsTable;
 import com.antonio.mobilecodingtest.data.models.PointDetails;
 import com.antonio.mobilecodingtest.data.remote.RemoteApi;
 import com.antonio.mobilecodingtest.ui.list.mvp.ListModel;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,7 +19,7 @@ public class DetailModel {
     private static final String TAG = ListModel.class.getSimpleName();
     private RemoteApi api = RetrofitClient.getClient(BuildConfig.BASE_URL).create(RemoteApi.class);
 
-    public void getDetail(String id,final DetailContract.ModelResultListener listener){
+    public void getDetailRemote(String id, final DetailContract.ModelResultListener listener){
         api.getPointDetail(id).enqueue(new Callback<PointDetails>() {
             @Override
             public void onResponse(Call<PointDetails> call, Response<PointDetails> response) {
@@ -33,5 +36,9 @@ public class DetailModel {
                 listener.onGetRemoteDataFailed(t.getMessage());
             }
         });
+    }
+
+    public List<PointDetailsTable> getPoint(String id){
+        return PointDetailsTable.find(PointDetailsTable.class,"identifier = ? ",id);
     }
 }

@@ -1,17 +1,16 @@
 package com.antonio.mobilecodingtest.ui.detail.mvp;
 
-import android.content.Context;
-
+import com.antonio.mobilecodingtest.data.local.PointDetailsTable;
 import com.antonio.mobilecodingtest.data.models.PointDetails;
+
+import java.util.List;
 
 public class DetailPresenter implements DetailContract.Presenter,DetailContract.ModelResultListener{
     private DetailContract.View view;
     private DetailModel model;
-    private Context context;
 
-    public DetailPresenter(DetailContract.View view, Context context) {
+    public DetailPresenter(DetailContract.View view) {
         this.view = view;
-        this.context = context;
         model = new DetailModel();
     }
 
@@ -29,7 +28,19 @@ public class DetailPresenter implements DetailContract.Presenter,DetailContract.
     public void onGetRemoteDataSuccess(PointDetails data) {
         if (view==null) return;
         view.hideProgress();
-        view.showData(data);
+
+        PointDetailsTable record = new PointDetailsTable();
+        record.setIdientifier(data.getId());
+        record.setTitle(data.getTitle());
+        record.setAddress(data.getAddress());
+        record.setTransport(data.getTransport());
+        record.setEmail(data.getEmail());
+        record.setGeocoordinates(data.getGeocoordinates());
+        record.setDescription(data.getDescription());
+        record.setPhone(data.getPhone());
+        record.save();
+
+        view.showData(record);
     }
 
     @Override
@@ -42,7 +53,13 @@ public class DetailPresenter implements DetailContract.Presenter,DetailContract.
     @Override
     public void getData(String id) {
         if (view==null) return;
-        view.showProgress();
-        model.getDetail(id,this);
+        List<PointDetailsTable> list = model.getPoint(id);
+        if (list.size()==0){
+            view.showProgress();
+            model.getDetailRemote(id,this);
+        }else{
+            view.hideProgress();
+            view.showData(list.get(0));
+        }
     }
 }
