@@ -4,4 +4,5 @@
     <string name="no_info">No information available</string>
     <string name="google_maps_key">AIzaSyCEGTw4ogq6bAnISt40VoSv8qqhko_sQnE</string>
     <string name="error">An error has occurred, try again</string>
+    <string name="no_result">No results found</string>
 </resources>

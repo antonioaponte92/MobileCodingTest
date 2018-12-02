@@ -91,11 +91,6 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
     }
 
     @Override
-    public void showNoResult() {
-
-    }
-
-    @Override
     public void showError(String reason) {
         showSnackBar(reason);
         finish();

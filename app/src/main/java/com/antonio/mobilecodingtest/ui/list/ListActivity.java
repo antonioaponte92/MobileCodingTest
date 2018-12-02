@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.antonio.mobilecodingtest.R;
@@ -31,11 +32,11 @@ import butterknife.OnTouch;
 public class ListActivity extends BaseActivity implements ListContract.View
         ,PointsAdapter.PointListener
         ,SwipeRefreshLayout.OnRefreshListener{
-    private static final String TAG = ListActivity.class.getSimpleName();
     @BindView(R.id.progressBar)             ProgressBar progressBar;
     @BindView(R.id.recycler_view)           RecyclerView recycler_points;
     @BindView(R.id.swipe)                   SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.etSearch)                EditText etSearch;
+    @BindView(R.id.layoutNoResults)         FrameLayout noResults;
 
     private ListPresenter presenter;
     private PointsAdapter adapter;
@@ -56,11 +57,6 @@ public class ListActivity extends BaseActivity implements ListContract.View
         recycler_points.setLayoutManager(linearLayoutManager);
         recycler_points.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(this);
-    }
-
-    @Override
-    public void showNoResult() {
-        Log.i(TAG, "showNoResult");
     }
 
     @Override
@@ -93,9 +89,11 @@ public class ListActivity extends BaseActivity implements ListContract.View
     @Override
     public void showData(List<PointTable> data) {
         adapter.setData(data);
+        noResults.setVisibility(data.size()== 0 ? View.VISIBLE : View.GONE);
+
     }
 
-    @OnTouch(R.id.recycler_view)
+    @OnTouch({R.id.recycler_view,R.id.layoutNoResults})
     boolean onTouch(View v){
         etSearch.clearFocus();
         try{
