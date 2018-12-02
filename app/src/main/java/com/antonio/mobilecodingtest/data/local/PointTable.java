@@ -1,10 +1,9 @@
 package com.antonio.mobilecodingtest.data.local;
 
 import com.orm.SugarRecord;
-import com.orm.dsl.Unique;
 
 public class PointTable extends SugarRecord{
-    String id;
+    String identifier;
     String title;
     String geocoordinates;
 
@@ -12,19 +11,19 @@ public class PointTable extends SugarRecord{
 
     }
 
-    public PointTable(String id, String title, String geocoordinates) {
-        this.id = id;
+    public PointTable(String identifier, String title, String geocoordinates) {
+        this.identifier = identifier;
         this.title = title;
         this.geocoordinates = geocoordinates;
     }
 
 
     public String getIdentifier() {
-        return id;
+        return identifier;
     }
 
     public void setIdentifier(String id) {
-        this.id = id;
+        this.identifier = id;
     }
 
     public String getTitle() {

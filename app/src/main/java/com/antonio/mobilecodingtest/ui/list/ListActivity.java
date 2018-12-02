@@ -73,6 +73,7 @@ public class ListActivity extends BaseActivity implements ListContract.View
 
     @Override
     public void onItemClick(String id) {
+        Log.e("Antonio","Mandaré "+id);
         Intent intent = new Intent(ListActivity.this, DetailActivity.class);
         intent.putExtra("id",id);
         startActivity(intent);
