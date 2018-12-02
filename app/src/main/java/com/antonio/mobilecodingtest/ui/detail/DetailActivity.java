@@ -75,10 +75,12 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
                 startActivity(intentMap);
                 break;
             case R.id.web:
-                if (record.getEmail().contains("www.")){
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(record.getEmail()));
-                    startActivity(browserIntent);
-                }else
+                if (record.getEmail()!=null)
+                    if (record.getEmail().contains("www.")){
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(record.getEmail()));
+                        startActivity(browserIntent);
+                        return;
+                    }
                     showSnackBar(R.string.no_web);
                 break;
             case R.id.share:
@@ -106,12 +108,17 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
         urlAddress = "http://maps.google.com/maps?q="+record.getGeocoordinates()+"("+ record.getTitle() + ")&iwloc=A&hl=es";
         dataLayout.setVisibility(View.VISIBLE);
         title.setText(data.getTitle());
-        address.setText(data.getAddress().equals("null") ? getString(R.string.no_info) :data.getAddress());
-        transport.setText(data.getTransport().equals("null") ? getString(R.string.no_info):data.getTransport());
-        phone.setText(data.getPhone().equals("null") ? getString(R.string.no_info):data.getPhone());
-        email.setText(data.getEmail().equals("null") ? getString(R.string.no_info):data.getEmail());
+        if (data.getAddress()!=null)
+            address.setText(data.getAddress().equals("null") ? getString(R.string.no_info) :data.getAddress());
+        if (data.getTransport()!=null)
+            transport.setText(data.getTransport().equals("null") ? getString(R.string.no_info):data.getTransport());
+        if (data.getPhone()!=null)
+            phone.setText(data.getPhone().equals("null") ? getString(R.string.no_info):data.getPhone());
+        if (data.getEmail()!=null)
+            email.setText(data.getEmail().equals("null") ? getString(R.string.no_info):data.getEmail());
         ExpandableTextView expTv1 = findViewById(R.id.expand_text_view)
-                .findViewById(R.id.expand_text_view);//TODO revisar por qué rompe con los últimos sitios de la lista
+                .findViewById(R.id.expand_text_view);
+        if (data.getDescription()!=null)
         expTv1.setText(data.getDescription());
         String[] latLng = data.getGeocoordinates().split(",");
         place = new LatLng(Float.parseFloat(latLng[0]),Float.parseFloat(latLng[1]));

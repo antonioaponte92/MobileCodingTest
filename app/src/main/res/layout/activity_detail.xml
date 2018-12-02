@@ -108,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:padding="8dp"
+                android:text="@string/no_info"
                 android:drawableStart="@drawable/ic_address"
                 android:drawablePadding="20dp"/>
             <TextView
@@ -116,6 +117,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:padding="8dp"
+                android:text="@string/no_info"
                 android:drawableStart="@drawable/ic_bus"
                 android:drawablePadding="20dp"/>
             <TextView
@@ -124,6 +126,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:padding="8dp"
+                android:text="@string/no_info"
                 android:drawableStart="@drawable/ic_phone"
                 android:drawablePadding="20dp"/>
             <TextView
@@ -132,6 +135,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:padding="8dp"
+                android:text="@string/no_info"
                 android:drawableStart="@drawable/ic_mail"
                 android:drawablePadding="20dp"/>
         </LinearLayout>
