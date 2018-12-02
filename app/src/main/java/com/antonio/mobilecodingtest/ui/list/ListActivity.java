@@ -42,7 +42,7 @@ public class ListActivity extends BaseActivity implements ListContract.View
     public void onCreateView(@Nullable Bundle savedInstanceState) {
         presenter = new ListPresenter(this,getBaseContext());
         presenter.getData();
-        adapter = new PointsAdapter(this);
+        adapter = new PointsAdapter(this,getBaseContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ListActivity.this);
         recycler_points.setHasFixedSize(true);
         recycler_points.setNestedScrollingEnabled(true);

@@ -22,15 +22,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <View
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/map"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="150dp" />
 
             <TextView
                 android:id="@+id/title"
                 android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:gravity="center"/>
         </LinearLayout>
 

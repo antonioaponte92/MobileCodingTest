@@ -13,11 +13,9 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "BASE_URL", baseURL
-            buildConfigField "String", "GMap_Key", gMapKey
         }
         release {
             buildConfigField "String", "BASE_URL", baseURL
-            buildConfigField "String", "GMap_Key", gMapKey
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -35,6 +33,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
     implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
     implementation "com.github.satyan:sugar:${sugarVersion}"
+    implementation "com.google.android.gms:play-services-maps:${playServicesVersion}"
 
     implementation 'com.codesgood:justifiedtextview:1.1.0'
     implementation 'com.ms-square:expandableTextView:0.1.4'
