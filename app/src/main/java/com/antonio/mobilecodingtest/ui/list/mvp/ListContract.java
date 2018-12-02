@@ -15,6 +15,7 @@ public class ListContract extends MVPContract{
 
     public interface Presenter extends MVPContract.Presenter<View>{
         void getData();
+        void getDataFiltered(String filter);
     }
 
     public interface View extends MVPContract.View{

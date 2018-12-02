@@ -7,6 +7,8 @@ import com.antonio.mobilecodingtest.commons.RetrofitClient;
 import com.antonio.mobilecodingtest.data.local.PointTable;
 import com.antonio.mobilecodingtest.data.models.Data;
 import com.antonio.mobilecodingtest.data.remote.RemoteApi;
+import com.orm.query.Condition;
+import com.orm.query.Select;
 
 import java.util.List;
 
@@ -40,5 +42,9 @@ public class ListModel {
 
     public List<PointTable> getListLocal(){
         return PointTable.listAll(PointTable.class);
+    }
+
+    public List<PointTable> getListFiltered(String filter){
+        return Select.from(PointTable.class).where(Condition.prop("title").like("%"+filter+"%")).list();
     }
 }

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -24,6 +25,7 @@ import com.antonio.mobilecodingtest.ui.list.mvp.ListPresenter;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnTextChanged;
 import butterknife.OnTouch;
 
 public class ListActivity extends BaseActivity implements ListContract.View
@@ -103,5 +105,14 @@ public class ListActivity extends BaseActivity implements ListContract.View
             e.printStackTrace();
         }
         return false;
+    }
+
+    @OnTextChanged(value = R.id.etSearch, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    void afterTextChanged(Editable editable){
+        if (editable.toString().isEmpty()){
+            presenter.getData();
+        }else{
+            presenter.getDataFiltered(editable.toString());
+        }
     }
 }

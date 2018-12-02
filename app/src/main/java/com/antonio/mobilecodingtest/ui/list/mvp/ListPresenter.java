@@ -57,4 +57,10 @@ public class ListPresenter implements ListContract.Presenter,ListContract.ModelR
             view.showData(model.getListLocal());
         }
     }
+
+    @Override
+    public void getDataFiltered(String filter) {
+        if (view == null) return;
+        view.showData(model.getListFiltered(filter));
+    }
 }
