@@ -1,6 +1,8 @@
 package com.antonio.mobilecodingtest.ui.detail;
 
+import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -41,7 +43,8 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
     @BindView(R.id.map)             MapView mapView;
     GoogleMap gMap;
     LatLng place;
-
+    PointDetailsTable record;
+    String urlAddress;
     DetailPresenter presenter;
 
     @Override
@@ -61,11 +64,34 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
         }
     }
 
-    @OnClick({R.id.back})
+    @OnClick({R.id.back,R.id.directions,R.id.web,R.id.share})
     void OnClick(View view){
         switch (view.getId()){
             case R.id.back:
                 finish();
+                break;
+            case R.id.directions:
+                Intent intentMap = new Intent(Intent.ACTION_VIEW, Uri.parse(urlAddress));
+                startActivity(intentMap);
+                break;
+            case R.id.web:
+                if (record.getEmail().contains("www.")){
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(record.getEmail()));
+                    startActivity(browserIntent);
+                }else
+                    showSnackBar(R.string.no_web);
+                break;
+            case R.id.share:
+                Intent intentShare = new Intent(Intent.ACTION_SEND);
+                intentShare.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intentShare.putExtra(Intent.EXTRA_TEXT,
+                        getString(R.string.share_text).replace("REPLACE_PLACE",
+                                record.getTitle()).
+                                replace("REPLACE_URL",urlAddress));
+                intentShare.setType("text/plain");
+                Intent chooser = Intent.createChooser(intentShare,getString(R.string.share_title));
+                if (intentShare.resolveActivity(getPackageManager())!=null)
+                    startActivity(chooser);
                 break;
         }
     }
@@ -76,6 +102,8 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
      */
     @Override
     public void showData(PointDetailsTable data) {
+        record = data;
+        urlAddress = "http://maps.google.com/maps?q="+record.getGeocoordinates()+"("+ record.getTitle() + ")&iwloc=A&hl=es";
         dataLayout.setVisibility(View.VISIBLE);
         title.setText(data.getTitle());
         address.setText(data.getAddress().equals("null") ? getString(R.string.no_info) :data.getAddress());
@@ -83,7 +111,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
         phone.setText(data.getPhone().equals("null") ? getString(R.string.no_info):data.getPhone());
         email.setText(data.getEmail().equals("null") ? getString(R.string.no_info):data.getEmail());
         ExpandableTextView expTv1 = findViewById(R.id.expand_text_view)
-                .findViewById(R.id.expand_text_view);
+                .findViewById(R.id.expand_text_view);//TODO revisar por qué rompe con los últimos sitios de la lista
         expTv1.setText(data.getDescription());
         String[] latLng = data.getGeocoordinates().split(",");
         place = new LatLng(Float.parseFloat(latLng[0]),Float.parseFloat(latLng[1]));

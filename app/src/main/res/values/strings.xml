@@ -5,4 +5,11 @@
     <string name="google_maps_key">AIzaSyCEGTw4ogq6bAnISt40VoSv8qqhko_sQnE</string>
     <string name="error">An error has occurred, try again</string>
     <string name="no_result">No results found</string>
+    <string name="directions">Directions</string>
+    <string name="call">Call</string>
+    <string name="web">Website</string>
+    <string name="share">Share</string>
+    <string name="no_web">Website not available</string>
+    <string name="share_title">Share with:</string>
+    <string name="share_text">Hey! Come and visit REPLACE_PLACE REPLACE_URL</string>
 </resources>

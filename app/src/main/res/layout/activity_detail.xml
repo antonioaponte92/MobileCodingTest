@@ -27,7 +27,6 @@
 
         </FrameLayout>
 
-
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
@@ -69,6 +68,40 @@
                     android:background="@android:color/transparent"/>
             </com.ms.square.android.expandabletextview.ExpandableTextView>
 
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+                <TextView
+                    android:id="@+id/directions"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_map"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:text="@string/directions"
+                    android:layout_weight=".5"/>
+                <TextView
+                    android:id="@+id/web"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_world"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:text="@string/web"
+                    android:layout_weight=".5"/>
+                <TextView
+                    android:id="@+id/share"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_share"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:text="@string/share"
+                    android:layout_weight=".5"/>
+            </LinearLayout>
             <TextView
                 android:id="@+id/address"
                 android:layout_width="match_parent"
