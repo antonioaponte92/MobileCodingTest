@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.antonio.mobilecodingtest.R;
 import com.antonio.mobilecodingtest.data.local.PointTable;
-import com.antonio.mobilecodingtest.data.models.Point;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -20,9 +19,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -101,6 +100,19 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
                     .setDraggable(false);
             gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place,13f));
+            gMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {                         /**Butterknife do not handle the google maps click events*/
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    listener.onItemClick(pointsList.get(getAdapterPosition()).getIdentifier());
+                }
+            });
+            gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    listener.onItemClick(pointsList.get(getAdapterPosition()).getIdentifier());
+                    return true;
+                }
+            });
         }
     }
 
