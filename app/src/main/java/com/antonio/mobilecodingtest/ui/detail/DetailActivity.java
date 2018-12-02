@@ -55,6 +55,9 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
             presenter = new DetailPresenter(this);
             presenter.getData(getIntent().getStringExtra("id"));
             mapView.onCreate(savedInstanceState);
+        }else{
+            showSnackBar(R.string.error);
+            finish();
         }
     }
 
@@ -94,7 +97,8 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
 
     @Override
     public void showError(String reason) {
-
+        showSnackBar(reason);
+        finish();
     }
 
     @Override

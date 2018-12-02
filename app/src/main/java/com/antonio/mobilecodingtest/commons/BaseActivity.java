@@ -7,6 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import butterknife.ButterKnife;
 
+/**
+ * This class allows you to avoid writing repeated methods for all activities.
+ *
+ * I have left an example of this in showSnackBar
+ */
 public abstract class BaseActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

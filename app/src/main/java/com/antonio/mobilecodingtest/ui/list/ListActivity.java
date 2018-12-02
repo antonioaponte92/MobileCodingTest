@@ -65,7 +65,7 @@ public class ListActivity extends BaseActivity implements ListContract.View
 
     @Override
     public void showError(String reason) {
-        Log.e(TAG, "showError: "+reason);
+        showSnackBar(reason);
     }
 
     @Override
