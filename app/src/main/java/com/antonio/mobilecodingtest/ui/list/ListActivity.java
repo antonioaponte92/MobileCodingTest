@@ -1,5 +1,6 @@
 package com.antonio.mobilecodingtest.ui.list;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.antonio.mobilecodingtest.R;
@@ -21,6 +24,7 @@ import com.antonio.mobilecodingtest.ui.list.mvp.ListPresenter;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnTouch;
 
 public class ListActivity extends BaseActivity implements ListContract.View
         ,PointsAdapter.PointListener
@@ -29,6 +33,8 @@ public class ListActivity extends BaseActivity implements ListContract.View
     @BindView(R.id.progressBar)             ProgressBar progressBar;
     @BindView(R.id.recycler_view)           RecyclerView recycler_points;
     @BindView(R.id.swipe)                   SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.etSearch)                EditText etSearch;
+
     private ListPresenter presenter;
     private PointsAdapter adapter;
 
@@ -49,7 +55,6 @@ public class ListActivity extends BaseActivity implements ListContract.View
         recycler_points.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(this);
     }
-
 
     @Override
     public void showNoResult() {
@@ -86,5 +91,17 @@ public class ListActivity extends BaseActivity implements ListContract.View
     @Override
     public void showData(List<PointTable> data) {
         adapter.setData(data);
+    }
+
+    @OnTouch(R.id.recycler_view)
+    boolean onTouch(View v){
+        etSearch.clearFocus();
+        try{
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }
