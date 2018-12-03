@@ -2,9 +2,11 @@ package com.antonio.mobilecodingtest.ui.list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -51,12 +53,15 @@ public class ListActivity extends BaseActivity implements ListContract.View
         adapter = new PointsAdapter(this,getBaseContext());
         presenter = new ListPresenter(this,getBaseContext());
         presenter.getData();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ListActivity.this);
         recycler_points.setHasFixedSize(true);
         recycler_points.setNestedScrollingEnabled(true);
-        recycler_points.setLayoutManager(linearLayoutManager);
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            recycler_points.setLayoutManager(new GridLayoutManager(this,3));
+        else
+            recycler_points.setLayoutManager(new LinearLayoutManager(ListActivity.this));
         recycler_points.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(this);
+
     }
 
     @Override
@@ -84,6 +89,10 @@ public class ListActivity extends BaseActivity implements ListContract.View
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(false);
+        if (etSearch.getText().toString().isEmpty())
+            presenter.getData();
+        else
+            presenter.getDataFiltered(etSearch.getText().toString());
     }
 
     @Override
