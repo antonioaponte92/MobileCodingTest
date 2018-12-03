@@ -64,7 +64,7 @@ public class ListActivity extends BaseActivity implements ListContract.View
         presenter.getData();
         recycler_points.setHasFixedSize(true);
         recycler_points.setNestedScrollingEnabled(true);
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)//This allow handle the landscape and portrait screen
             recycler_points.setLayoutManager(new GridLayoutManager(this,3));
         else
             recycler_points.setLayoutManager(new LinearLayoutManager(ListActivity.this));
@@ -115,6 +115,10 @@ public class ListActivity extends BaseActivity implements ListContract.View
 
     }
 
+    /**
+     * This method hides the keyboard by tapping outside the search field to make the use of
+     * the application more comfortable
+     */
     @OnTouch({R.id.recycler_view,R.id.layoutNoResults})
     boolean onTouch(View v){
         etSearch.clearFocus();
