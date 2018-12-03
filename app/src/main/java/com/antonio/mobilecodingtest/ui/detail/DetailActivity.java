@@ -68,7 +68,7 @@ public class DetailActivity extends BaseActivity implements DetailContract.View,
     void OnClick(View view){
         switch (view.getId()){
             case R.id.back:
-                finish();
+                onBackPressed();
                 break;
             case R.id.directions:
                 Intent intentMap = new Intent(Intent.ACTION_VIEW, Uri.parse(urlAddress));

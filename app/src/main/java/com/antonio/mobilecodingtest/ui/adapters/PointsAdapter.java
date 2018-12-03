@@ -82,7 +82,7 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder
 
         @OnClick(R.id.card_view)
         void OnClick(){
-            listener.onItemClick(pointsList.get(getAdapterPosition()).getIdentifier());
+            listener.onItemClick(pointsList.get(getAdapterPosition()).getIdentifier(),mapView);
         }
 
         @Override
@@ -103,13 +103,13 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder
             gMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {                         /**Butterknife do not handle the google maps click events*/
                 @Override
                 public void onMapClick(LatLng latLng) {
-                    listener.onItemClick(pointsList.get(getAdapterPosition()).getIdentifier());
+                    listener.onItemClick(pointsList.get(getAdapterPosition()).getIdentifier(),mapView);
                 }
             });
             gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(Marker marker) {
-                    listener.onItemClick(pointsList.get(getAdapterPosition()).getIdentifier());
+                    listener.onItemClick(pointsList.get(getAdapterPosition()).getIdentifier(),mapView);
                     return true;
                 }
             });
@@ -117,6 +117,6 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder
     }
 
     public interface PointListener{
-        void onItemClick(String id);
+        void onItemClick(String id,MapView sharedMap);
     }
 }

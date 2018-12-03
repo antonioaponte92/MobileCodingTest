@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +19,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
+import com.antonio.mobilecodingtest.BuildConfig;
 import com.antonio.mobilecodingtest.R;
 import com.antonio.mobilecodingtest.commons.BaseActivity;
 import com.antonio.mobilecodingtest.data.local.PointTable;
@@ -24,6 +27,7 @@ import com.antonio.mobilecodingtest.ui.adapters.PointsAdapter;
 import com.antonio.mobilecodingtest.ui.detail.DetailActivity;
 import com.antonio.mobilecodingtest.ui.list.mvp.ListContract;
 import com.antonio.mobilecodingtest.ui.list.mvp.ListPresenter;
+import com.google.android.gms.maps.MapView;
 
 import java.util.List;
 
@@ -80,10 +84,14 @@ public class ListActivity extends BaseActivity implements ListContract.View
     }
 
     @Override
-    public void onItemClick(String id) {
+    public void onItemClick(String id, MapView sharedMap) {
         Intent intent = new Intent(ListActivity.this, DetailActivity.class);
         intent.putExtra("id",id);
-        startActivity(intent);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+                sharedMap,
+                ViewCompat.getTransitionName(sharedMap));
+        startActivity(intent, options.toBundle());
     }
 
     @Override
