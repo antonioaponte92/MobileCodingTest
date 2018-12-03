@@ -4,7 +4,7 @@
 
 This project has been done as part of the technical test of the company Wordline
 
-##Instalation
+## Instalation
 
 In order to compile and execute this project, you need:
 
