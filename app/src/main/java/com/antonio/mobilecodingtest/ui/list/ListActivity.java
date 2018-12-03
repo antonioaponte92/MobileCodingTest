@@ -52,6 +52,11 @@ public class ListActivity extends BaseActivity implements ListContract.View
         return R.layout.activity_list;
     }
 
+    /**
+     * I decided to show a list of maps to make the interface look better (This affects the
+     * performance of the application). Ideally, the Endpoint should send at least the image
+     * of each point.
+     */
     @Override
     public void onCreateView(@Nullable Bundle savedInstanceState) {
         adapter = new PointsAdapter(this,getBaseContext());
